@@ -12,6 +12,8 @@
 		46BD3ED11E98E04C00481F20 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46BD3ECF1E98E04C00481F20 /* Main.storyboard */; };
 		46BD3ED31E98E04C00481F20 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 46BD3ED21E98E04C00481F20 /* Assets.xcassets */; };
 		46BD3ED61E98E04C00481F20 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46BD3ED41E98E04C00481F20 /* LaunchScreen.storyboard */; };
+		46BD3EDE1E98F4DE00481F20 /* MemeVc+PickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46BD3EDD1E98F4DE00481F20 /* MemeVc+PickerDelegate.swift */; };
+		46BD3EE01E98F65000481F20 /* MemeVc+TextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46BD3EDF1E98F65000481F20 /* MemeVc+TextFieldDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		46BD3ED21E98E04C00481F20 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		46BD3ED51E98E04C00481F20 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		46BD3ED71E98E04C00481F20 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		46BD3EDD1E98F4DE00481F20 /* MemeVc+PickerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MemeVc+PickerDelegate.swift"; sourceTree = "<group>"; };
+		46BD3EDF1E98F65000481F20 /* MemeVc+TextFieldDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MemeVc+TextFieldDelegate.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +60,8 @@
 			children = (
 				46BD3ECB1E98E04C00481F20 /* AppDelegate.swift */,
 				46BD3ECD1E98E04C00481F20 /* MemeViewController.swift */,
+				46BD3EDD1E98F4DE00481F20 /* MemeVc+PickerDelegate.swift */,
+				46BD3EDF1E98F65000481F20 /* MemeVc+TextFieldDelegate.swift */,
 				46BD3ECF1E98E04C00481F20 /* Main.storyboard */,
 				46BD3ED21E98E04C00481F20 /* Assets.xcassets */,
 				46BD3ED41E98E04C00481F20 /* LaunchScreen.storyboard */,
@@ -137,6 +143,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46BD3EDE1E98F4DE00481F20 /* MemeVc+PickerDelegate.swift in Sources */,
+				46BD3EE01E98F65000481F20 /* MemeVc+TextFieldDelegate.swift in Sources */,
 				46BD3ECE1E98E04C00481F20 /* MemeViewController.swift in Sources */,
 				46BD3ECC1E98E04C00481F20 /* AppDelegate.swift in Sources */,
 			);
