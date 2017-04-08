@@ -316,6 +316,7 @@
 				46BD3EDC1E98E04C00481F20 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
