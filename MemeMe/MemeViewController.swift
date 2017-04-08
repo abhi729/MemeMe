@@ -27,7 +27,7 @@ class MemeViewController: UIViewController {
         NSStrokeWidthAttributeName: -3,
         NSStrokeColorAttributeName: UIColor.black,
         NSForegroundColorAttributeName: UIColor.white,
-        NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!
+        NSFontAttributeName: UIFont(name: "impact", size: 40)!
     ]
 
     override func viewDidLoad() {
@@ -63,32 +63,31 @@ class MemeViewController: UIViewController {
         textField.isUserInteractionEnabled = false
         textField.delegate = self
     }
-        
-    func presentPickerController(_ forCamera: Bool) {
+    
+    func presentPickerController(_ sourceType: UIImagePickerControllerSourceType) {
         let pickerController = UIImagePickerController()
         pickerController.delegate = self
-        if !forCamera {
-            pickerController.sourceType = .photoLibrary
-        } else {
-            pickerController.sourceType = .camera
-        }
-        self.present(pickerController, animated: true, completion: nil)
+        pickerController.sourceType = sourceType
+        present(pickerController, animated: true, completion: nil)
     }
     
     @IBAction func pickAnImage(_ sender: Any) {
-        presentPickerController(false)
+        presentPickerController(.photoLibrary)
     }
     
     @IBAction func takeAPicture(_ sender: Any) {
-        presentPickerController(true)
+        presentPickerController(.camera)
     }
     
     @IBAction func shareMeme(_ sender: Any) {
         let image = generateMemedImage()
         let controller = UIActivityViewController(activityItems: [image], applicationActivities: nil)
-        self.present(controller, animated: true) { 
-            self.saveMeme()
+        controller.completionWithItemsHandler = {(_, completed, _, _) in
+            if (completed) {
+                self.saveMeme()
+            }
         }
+        present(controller, animated: true, completion: nil)
     }
     
     @IBAction func cancelMeme(_ sender: Any) {
@@ -98,7 +97,7 @@ class MemeViewController: UIViewController {
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
+        view.endEditing(true)
     }
     
     func keyboardWillShow(_ notification:Notification) {
@@ -134,8 +133,8 @@ class MemeViewController: UIViewController {
         topToolBar.isHidden = true
         bottomToolBar.isHidden = true
         
-        UIGraphicsBeginImageContextWithOptions(self.view.frame.size, false, 0)
-        view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
+        UIGraphicsBeginImageContextWithOptions(view.frame.size, false, 0)
+        view.drawHierarchy(in: view.frame, afterScreenUpdates: true)
         let memedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         
@@ -148,7 +147,6 @@ class MemeViewController: UIViewController {
     func saveMeme() {
         let memedImage = generateMemedImage()
         meme = Meme(topText: textFieldAtTop.text!, bottomText: textFieldAtBottom.text!, originalImage: memeImageView.image!, memedImage: memedImage)
-        UIImageWriteToSavedPhotosAlbum(meme.memedImage, self, nil, nil)
     }
     
 }
