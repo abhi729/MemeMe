@@ -10,6 +10,7 @@ import UIKit
 
 class MemeViewController: UIViewController {
     
+    @IBOutlet weak var topToolBar: UIToolbar!
     @IBOutlet weak var memeView: UIView!
     @IBOutlet weak var textFieldAtTop: UITextField!
     @IBOutlet weak var textFieldAtBottom: UITextField!
@@ -18,6 +19,9 @@ class MemeViewController: UIViewController {
     @IBOutlet weak var albumButton: UIBarButtonItem!
     @IBOutlet weak var shareButton: UIBarButtonItem!
     @IBOutlet weak var cancelButton: UIBarButtonItem!
+    @IBOutlet weak var bottomToolBar: UIToolbar!
+    
+    var meme: Meme!
     
     let memeTextAttributes:[String:Any] = [
         NSStrokeWidthAttributeName: -3,
@@ -37,6 +41,13 @@ class MemeViewController: UIViewController {
         super.viewWillAppear(animated)
         
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
+        
+        if let image = memeImageView.image, image != UIImage() {
+            shareButton.isEnabled = true
+        } else {
+            shareButton.isEnabled = false
+        }
+        
         subscribeToKeyboardNotifications()
     }
     
@@ -49,6 +60,7 @@ class MemeViewController: UIViewController {
         textField.defaultTextAttributes = memeTextAttributes
         textField.text = withText
         textField.textAlignment = .center
+        textField.isUserInteractionEnabled = false
         textField.delegate = self
     }
         
@@ -72,11 +84,17 @@ class MemeViewController: UIViewController {
     }
     
     @IBAction func shareMeme(_ sender: Any) {
-        
+        let image = generateMemedImage()
+        let controller = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        self.present(controller, animated: true) { 
+            self.saveMeme()
+        }
     }
     
     @IBAction func cancelMeme(_ sender: Any) {
-       
+        memeImageView.image = UIImage()
+        setupTextField(textFieldAtTop, "TOP")
+        setupTextField(textFieldAtBottom, "BOTTOM")
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -111,5 +129,27 @@ class MemeViewController: UIViewController {
         return keyboardSize.cgRectValue.height
     }
 
+    func generateMemedImage() -> UIImage {
+        
+        topToolBar.isHidden = true
+        bottomToolBar.isHidden = true
+        
+        UIGraphicsBeginImageContextWithOptions(self.view.frame.size, false, 0)
+        view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
+        let memedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        
+        topToolBar.isHidden = false
+        bottomToolBar.isHidden = false
+        
+        return memedImage
+    }
+    
+    func saveMeme() {
+        let memedImage = generateMemedImage()
+        meme = Meme(topText: textFieldAtTop.text!, bottomText: textFieldAtBottom.text!, originalImage: memeImageView.image!, memedImage: memedImage)
+        UIImageWriteToSavedPhotosAlbum(meme.memedImage, self, nil, nil)
+    }
+    
 }
 

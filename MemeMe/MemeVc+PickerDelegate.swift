@@ -18,6 +18,8 @@ extension MemeViewController: UIImagePickerControllerDelegate, UINavigationContr
         print(info)
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             memeImageView.image = image
+            textFieldAtTop.isUserInteractionEnabled = true
+            textFieldAtBottom.isUserInteractionEnabled = true
         }
         picker.dismiss(animated: true, completion: nil)
     }
