@@ -13,4 +13,8 @@ struct Meme {
     let bottomText: String
     let originalImage: UIImage
     let memedImage: UIImage
+    
+    func name() -> String {
+        return topText + " " + bottomText
+    }
 }

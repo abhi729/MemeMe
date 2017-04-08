@@ -10,7 +10,7 @@ import UIKit
 
 class SentMemeTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var sentMemeImageView: UIView!
+    @IBOutlet weak var sentMemeImageView: UIImageView!
     @IBOutlet weak var sentMemeTextLabel: UILabel!
     
 }

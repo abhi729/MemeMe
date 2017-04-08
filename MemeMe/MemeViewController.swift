@@ -83,15 +83,14 @@ class MemeViewController: UIViewController {
         controller.completionWithItemsHandler = {(_, completed, _, _) in
             if (completed) {
                 self.saveMeme()
+                self.dismiss(animated: true, completion: nil)
             }
         }
         present(controller, animated: true, completion: nil)
     }
     
     @IBAction func cancelMeme(_ sender: Any) {
-        memeImageView.image = UIImage()
-        setupTextField(textFieldAtTop, "TOP")
-        setupTextField(textFieldAtBottom, "BOTTOM")
+        dismiss(animated: true, completion: nil)
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

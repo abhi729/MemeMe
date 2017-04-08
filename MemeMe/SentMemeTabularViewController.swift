@@ -8,22 +8,46 @@
 
 import UIKit
 
-class SentMemeTabularViewController: UIViewController, UITableViewDataSource {
+class SentMemeTabularViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    @IBOutlet weak var memesTableView: UITableView!
     let cellReuseIdentifier = "memeCell"
+    var memeArray = [Meme]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
-    // MARK: UITableViewDataSource delegate functions
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        refreshMemesArray()
+        memesTableView.reloadData()
+    }
+    
+    func refreshMemesArray() {
+        let object = UIApplication.shared.delegate
+        let appDelegate = object as! AppDelegate
+        memeArray = appDelegate.memes
+    }
+    
+    // MARK: UITableViewDataSource functions
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return memeArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath) as! SentMemeTableViewCell
+        cell.sentMemeImageView.image = memeArray[indexPath.row].memedImage
+        cell.sentMemeTextLabel.text = memeArray[indexPath.row].name()
+        cell.sentMemeTextLabel.lineBreakMode = .byTruncatingMiddle
         return cell
     }
+    
+    // MARK: UITableViewDelegate functions
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
+  
 }

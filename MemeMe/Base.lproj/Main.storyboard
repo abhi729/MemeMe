@@ -47,7 +47,7 @@
         <!--Sent Meme Tabular View Controller-->
         <scene sceneID="ej7-KD-rVb">
             <objects>
-                <viewController id="Hft-Zn-Poi" customClass="SentMemeTabularViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="Hft-Zn-Poi" customClass="SentMemeTabularViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4QO-f8-DxE"/>
                         <viewControllerLayoutGuide type="bottom" id="8ao-Ie-w2m"/>
@@ -72,14 +72,15 @@
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2CP-Eb-AGf">
                                                             <rect key="frame" x="0.0" y="0.0" width="150" height="120"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="120" id="1S6-4s-3pk"/>
                                                                 <constraint firstAttribute="width" constant="150" id="jtD-by-5xC"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ryG-aX-UPh">
-                                                            <rect key="frame" x="158" y="48.5" width="146" height="23.5"/>
-                                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ryG-aX-UPh">
+                                                            <rect key="frame" x="158" y="50" width="146" height="20"/>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -94,13 +95,14 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="sentMemeImageView" destination="scl-2s-Eey" id="azy-YP-auC"/>
+                                            <outlet property="sentMemeImageView" destination="2CP-Eb-AGf" id="hIK-Xh-fSN"/>
                                             <outlet property="sentMemeTextLabel" destination="ryG-aX-UPh" id="Sgg-fr-b10"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="Hft-Zn-Poi" id="HHL-Iv-WHb"/>
+                                    <outlet property="delegate" destination="Hft-Zn-Poi" id="iRQ-AU-IaC"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -119,6 +121,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="memesTableView" destination="zgv-D3-eM3" id="Pdr-mV-4WM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jSP-LU-ftZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -144,7 +149,7 @@
         <!--Sent Meme Grid View Controller-->
         <scene sceneID="iOC-OC-R3D">
             <objects>
-                <viewController id="b0U-k8-mW0" customClass="SentMemeGridViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="b0U-k8-mW0" customClass="SentMemeGridViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bYe-2m-Uet"/>
                         <viewControllerLayoutGuide type="bottom" id="Nsl-Vn-23e"/>
@@ -153,9 +158,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Qxb-oy-5ZP">
-                                <rect key="frame" x="0.0" y="64" width="320" height="455"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Qxb-oy-5ZP">
+                                <rect key="frame" x="0.0" y="68" width="320" height="447"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="sc7-Lo-3ZU">
                                     <size key="itemSize" width="150" height="120"/>
@@ -171,8 +175,9 @@
                                             <rect key="frame" x="0.0" y="0.0" width="150" height="120"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sYD-fk-A6n">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sYD-fk-A6n">
                                                     <rect key="frame" x="0.0" y="0.0" width="150" height="120"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 </imageView>
                                             </subviews>
                                         </view>
@@ -193,6 +198,12 @@
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Qxb-oy-5ZP" firstAttribute="leading" secondItem="30l-ei-8nj" secondAttribute="leading" id="AcY-JD-ZCb"/>
+                            <constraint firstItem="Nsl-Vn-23e" firstAttribute="top" secondItem="Qxb-oy-5ZP" secondAttribute="bottom" constant="4" id="Mdh-Pg-YlR"/>
+                            <constraint firstAttribute="trailing" secondItem="Qxb-oy-5ZP" secondAttribute="trailing" id="MhQ-HJ-wnZ"/>
+                            <constraint firstItem="Qxb-oy-5ZP" firstAttribute="top" secondItem="bYe-2m-Uet" secondAttribute="bottom" constant="4" id="rvo-wZ-WOJ"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="lvM-Rj-jtF">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="6OZ-fg-T46">
@@ -201,6 +212,10 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="flowLayout" destination="sc7-Lo-3ZU" id="IjL-J2-Y8D"/>
+                        <outlet property="memesCollectionView" destination="Qxb-oy-5ZP" id="nCW-9P-F5b"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eDn-s2-Rd7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
