@@ -21,8 +21,6 @@ class MemeViewController: UIViewController {
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var bottomToolBar: UIToolbar!
     
-    var meme: Meme!
-    
     let memeTextAttributes:[String:Any] = [
         NSStrokeWidthAttributeName: -3,
         NSStrokeColorAttributeName: UIColor.black,
@@ -146,7 +144,10 @@ class MemeViewController: UIViewController {
     
     func saveMeme() {
         let memedImage = generateMemedImage()
-        meme = Meme(topText: textFieldAtTop.text!, bottomText: textFieldAtBottom.text!, originalImage: memeImageView.image!, memedImage: memedImage)
+        let meme = Meme(topText: textFieldAtTop.text!, bottomText: textFieldAtBottom.text!, originalImage: memeImageView.image!, memedImage: memedImage)
+        let object = UIApplication.shared.delegate
+        let appDelegate = object as! AppDelegate
+        appDelegate.memes.append(meme)
     }
     
 }
