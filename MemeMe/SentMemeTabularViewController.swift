@@ -47,7 +47,17 @@ class SentMemeTabularViewController: UIViewController, UITableViewDataSource, UI
     // MARK: UITableViewDelegate functions
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let memeSelected = memeArray[indexPath.row]
+        performSegue(withIdentifier: "memeDetail", sender: memeSelected)
+    }
+    
+    // MARK: Preparing for segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "memeDetail" {
+            let memeDetailVC = segue.destination as! MemeDetailViewController
+            let meme = sender as! Meme
+            memeDetailVC.meme = meme
+        }
     }
   
 }

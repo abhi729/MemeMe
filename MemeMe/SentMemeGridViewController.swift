@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SentMemeGridViewController: UIViewController, UICollectionViewDataSource {
+class SentMemeGridViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var memesCollectionView: UICollectionView!
@@ -23,8 +23,13 @@ class SentMemeGridViewController: UIViewController, UICollectionViewDataSource {
         flowLayout.itemSize = CGSize(width: dimension, height: dimension)
     }
     
+    //This function is called when a view is about to change to the desired orientation. So the frames will be opposite.
+    //For example, when user rotates the device to landscape, view frame will be of portrait when this function is called.
+    
     func calculateDimensionBasedOnOrientation(_ whileLoading: Bool = false,_ space: CGFloat) -> CGFloat {
         let isLandscape = UIDevice.current.orientation.isLandscape
+        
+        //Displaying 3 items per row for portrait and 6 items per row for landscape
         if whileLoading {
             if isLandscape {
                 return (view.frame.size.width - (5 * space)) / 6.0
@@ -43,6 +48,7 @@ class SentMemeGridViewController: UIViewController, UICollectionViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Initial setup of layout when view appears
         setUpLayoutForOrientation(true)
     }
     
@@ -53,6 +59,7 @@ class SentMemeGridViewController: UIViewController, UICollectionViewDataSource {
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        //Adjust collection view layout for current orientation
         if flowLayout != nil && memesCollectionView != nil {
             setUpLayoutForOrientation()
             memesCollectionView.setNeedsLayout()
@@ -75,5 +82,20 @@ class SentMemeGridViewController: UIViewController, UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! SentMemeCollectionViewCell
         cell.sentMemeImageView.image = memeArray[indexPath.row].memedImage
         return cell
+    }
+    
+    // MARK: UICollectionViewDelegate functions
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let memeSelected = memeArray[indexPath.row]
+        performSegue(withIdentifier: "memeDetail", sender: memeSelected)
+    }
+    
+    // MARK: Preparing for segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "memeDetail" {
+            let memeDetailVC = segue.destination as! MemeDetailViewController
+            let meme = sender as! Meme
+            memeDetailVC.meme = meme
+        }
     }
 }
